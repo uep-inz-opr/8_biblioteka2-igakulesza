@@ -19,7 +19,7 @@ class Biblioteka():
         counterCzytelnika = 0
         if tytul.strip() not in listaKsiazekWBibliotece:
             listaStatusow.append("False")
-        elif tytul.strip() in listaKsiazekWBibliotece and line not in listaKsiazkaCzytelnik:
+        elif tytul.strip() in listaKsiazekWBibliotece and line not in listaKsiazkaCzytelnik and listaCzytelnikow.count(czytelnik)<=3:
             listaWypozyczonych.append(tytul.strip())
             listaStatusow.append("True")
             listaKsiazekWBibliotece.remove(tytul.strip())
