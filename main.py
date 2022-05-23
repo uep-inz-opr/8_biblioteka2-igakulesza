@@ -1,45 +1,56 @@
+import string
+
 class Biblioteka():
     def __init__(self,operacja):
         self._operacja = operacja
 
-        self.listaWypozyczonych = list()
-       # self.listaStatusow = list()
+
+
+        #self.listaStatusow = list()
     def getOperacja(self):
         return operacja
     def dodaj(self,tytul,autor):
         ksiazka = tytul,autor
-        listaKsiazekWBibliotece.append(ksiazka)
+        listaKsiazekWBibliotece.append(ksiazka[0].strip())
         listaStatusow.append("True")
+
     def wypozycz(self,czytelnik,tytul):
+        line = czytelnik,tytul
         counterCzytelnika = 0
-
-        linia = czytelnik,tytul
-        for line in listaKsiazekWBibliotece:
-            if tytul == line[0]:
-                self.listaWypozyczonych.append(linia)
-                listaStatusow.append("True")
-                listaKsiazekWBibliotece.remove(line)
-                counterCzytelnika +=1
-                if counterCzytelnika > 3:
-                    listaStatusow.append("False")
-
-    def oddaj(self,czytelnik,tytul):
-        linijka = czytelnik,tytul
-        if linijka in self.listaWypozyczonych:
-           self.listaWypozyczonych.remove(linijka)
+        if tytul.strip() not in listaKsiazekWBibliotece:
+            listaStatusow.append("False")
+        elif tytul.strip() in listaKsiazekWBibliotece and line not in listaKsiazkaCzytelnik:
+            listaWypozyczonych.append(tytul.strip())
+            listaStatusow.append("True")
+            listaKsiazekWBibliotece.remove(tytul.strip())
+            listaKsiazkaCzytelnik.append(line)
+            listaCzytelnikow.append(czytelnik.strip())
         else:
-            pass
+            listaStatusow.append("False")
+    def oddaj(self,czytelnik,tytul):
+        if tytul.strip() in listaWypozyczonych and czytelnik.strip() in listaCzytelnikow:
+           listaWypozyczonych.remove(tytul.strip())
+           listaStatusow.append("True")
+           listaKsiazekWBibliotece.append(tytul.strip())
+           listaCzytelnikow.remove(czytelnik.strip())
+        else:
+            listaStatusow.append("False")
+
+listaWypozyczonych=[]
+listaKsiazkaCzytelnik=[]
 listaKsiazekWBibliotece = list()
 listaStatusow = []
 listaOperacji = []
+listaCzytelnikow=[]
 ileOperacji = int(input())
 for i in range(ileOperacji):
     op = eval(input())
-    if op[0] == 'dodaj':
+    if op[0].strip() == 'dodaj':
         operacja = Biblioteka(op[0])
-        operacja.dodaj(op[1],op[2])
+        operacja.dodaj(op[1], op[2])
         listaOperacji.append(operacja)
-    elif op[0] == 'wypozycz':
+
+    elif op[0].strip() ==  'wypozycz':
         operacja = Biblioteka(op[0])
         operacja.wypozycz(op[1], op[2])
         listaOperacji.append(operacja)
